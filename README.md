@@ -1,6 +1,8 @@
-# FlyMachineApi
+# Fly.io Machine API Client
 
-**TODO: Add description**
+_This is a quick and dirty client for the Fly.io Machine API._
+
+https://docs.machines.dev/
 
 ## Installation
 

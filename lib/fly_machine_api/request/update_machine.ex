@@ -31,7 +31,7 @@ defmodule FlyMachineApi.Request.UpdateMachine do
   """
   @spec update_machine(map(), Fly.options()) :: Fly.response()
   def update_machine(params, opts \\ []) do
-    client = Fly.new(opts)
+    client = FlyMachineApi.new(opts)
 
     with {:ok, validated_params} <- validate_params(params, @update_machine_options) do
       app_name = Map.get(validated_params, :app_name)

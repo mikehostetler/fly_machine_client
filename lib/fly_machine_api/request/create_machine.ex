@@ -31,7 +31,7 @@ defmodule FlyMachineApi.Request.CreateMachine do
   @spec create_machine(map(), Fly.options()) :: Fly.response()
   def create_machine(params, opts \\ []) do
     # with {:ok, validated_params} <- validate_params(params, @create_machine_options) do
-    client = Fly.new(opts)
+    client = FlyMachineApi.new(opts)
     app_name = Map.get(params, :app_name)
 
     client

@@ -21,6 +21,7 @@ defmodule FlyMachineApi.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:nimble_options, "~> 1.1"},
       {:tesla, "~> 1.13"},
 
       # Testing

@@ -11,7 +11,7 @@ defmodule FlyMachineApi.Request.CreateApp do
 
   @spec create_app(map() | keyword(), Fly.options()) :: Fly.response()
   def create_app(params, opts \\ []) do
-    client = Fly.new(opts)
+    client = FlyMachineApi.new(opts)
     params = if is_map(params), do: Enum.into(params, []), else: params
 
     with {:ok, validated_params} <- validate_params(params, @create_app_options) do

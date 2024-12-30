@@ -26,8 +26,17 @@ defmodule FlyMachineApi do
     Keyword.get(options, :token, token())
   end
 
-  def base_url, do: PetalPro.config(:fly_base_url, @default_base_url)
-  def token, do: PetalPro.config(:fly_token)
+  def base_url, do: Application.get_env(:fly_machine_api, :base_url, @default_base_url)
+
+  def token do
+    case Application.get_env(:fly_machine_api, :token) do
+      nil ->
+        raise "Fly API token not configured. Please set the :fly_machine_api, :token config value."
+
+      token ->
+        token
+    end
+  end
 
   @doc """
   Lists all apps for the authenticated user.
@@ -64,8 +73,8 @@ defmodule FlyMachineApi do
   {:ok, app} on success, where app is the created app data.
   {:error, error()} on failure.
   """
-  @spec create_app(map(), Fly.options()) :: Fly.response()
-  defdelegate create_app(params, opts \\ []), to: Fly.Request.CreateApp
+  @spec create_app(map(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  defdelegate create_app(params, opts \\ []), to: FlyMachineApi.Request.CreateApp
 
   @doc """
   Gets details of a specific app.
@@ -80,7 +89,7 @@ defmodule FlyMachineApi do
   {:ok, app} on success, where app is the app data.
   {:error, error()} on failure.
   """
-  @spec get_app(String.t(), Fly.options()) :: Fly.response()
+  @spec get_app(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
   def get_app(app_name, opts \\ []) do
     client = new(opts)
     client |> Tesla.get("/apps/#{app_name}") |> handle_request(:get_app)
@@ -99,7 +108,7 @@ defmodule FlyMachineApi do
   {:ok, nil} on success.
   {:error, error()} on failure.
   """
-  @spec destroy_app(String.t(), options()) :: response()
+  @spec destroy_app(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
   def destroy_app(app_name, opts \\ []) do
     client = new(opts)
     client |> Tesla.delete("/apps/#{app_name}") |> handle_request(:destroy_app)
@@ -118,7 +127,7 @@ defmodule FlyMachineApi do
   {:ok, machines} on success, where machines is a list of machine data.
   {:error, error()} on failure.
   """
-  @spec list_machines(String.t(), options()) :: response()
+  @spec list_machines(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
   def list_machines(app_name, opts \\ []) do
     client = new(opts)
     client |> Tesla.get("/apps/#{app_name}/machines") |> handle_request(:list_machines)
@@ -138,7 +147,7 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the machine data.
   {:error, error()} on failure.
   """
-  @spec get_machine(String.t(), String.t(), options()) :: response()
+  @spec get_machine(String.t(), String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
   def get_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -158,11 +167,11 @@ defmodule FlyMachineApi do
   ## Returns
 
   """
-  @spec create_machine(map(), options()) :: response()
-  defdelegate create_machine(params, opts \\ []), to: Fly.Request.CreateMachine
+  @spec create_machine(map(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  defdelegate create_machine(params, opts \\ []), to: FlyMachineApi.Request.CreateMachine
 
-  @spec update_machine(map(), options()) :: response()
-  defdelegate update_machine(params, opts \\ []), to: Fly.Request.UpdateMachine
+  @spec update_machine(map(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  defdelegate update_machine(params, opts \\ []), to: FlyMachineApi.Request.UpdateMachine
 
   @doc """
   Destroys (deletes) a machine.
@@ -178,7 +187,8 @@ defmodule FlyMachineApi do
   {:ok, nil} on success.
   {:error, error()} on failure.
   """
-  @spec destroy_machine(String.t(), String.t(), options()) :: response()
+  @spec destroy_machine(String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def destroy_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -201,7 +211,8 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the restarted machine data.
   {:error, error()} on failure.
   """
-  @spec restart_machine(String.t(), String.t(), options()) :: response()
+  @spec restart_machine(String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def restart_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -225,7 +236,8 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the updated machine data.
   {:error, error()} on failure.
   """
-  @spec signal_machine(String.t(), String.t(), String.t(), options()) :: response()
+  @spec signal_machine(String.t(), String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def signal_machine(app_name, machine_id, signal, opts \\ []) do
     client = new(opts)
 
@@ -248,7 +260,8 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the started machine data.
   {:error, error()} on failure.
   """
-  @spec start_machine(String.t(), String.t(), options()) :: response()
+  @spec start_machine(String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def start_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -271,7 +284,8 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the stopped machine data.
   {:error, error()} on failure.
   """
-  @spec stop_machine(String.t(), String.t(), options()) :: response()
+  @spec stop_machine(String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def stop_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -294,7 +308,8 @@ defmodule FlyMachineApi do
   {:ok, machine} on success, where machine is the suspended machine data.
   {:error, error()} on failure.
   """
-  @spec suspend_machine(String.t(), String.t(), options()) :: response()
+  @spec suspend_machine(String.t(), String.t(), FlyMachineApi.options()) ::
+          FlyMachineApi.response()
   def suspend_machine(app_name, machine_id, opts \\ []) do
     client = new(opts)
 
@@ -326,8 +341,8 @@ defmodule FlyMachineApi do
           String.t(),
           String.t(),
           integer(),
-          options()
-        ) :: response()
+          FlyMachineApi.options()
+        ) :: FlyMachineApi.response()
   def wait_for_machine_state(
         app_name,
         machine_id,

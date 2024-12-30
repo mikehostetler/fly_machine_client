@@ -1,8 +1,8 @@
 defmodule FlyMachineApiTest do
   use ExUnit.Case
-  doctest FlyMachineApi
+  # doctest FlyMachineApi
 
-  test "greets the world" do
-    assert FlyMachineApi.hello() == :world
-  end
+  # test "greets the world" do
+  #   assert FlyMachineApi.hello() == :world
+  # end
 end
