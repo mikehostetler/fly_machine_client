@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"app_name\":\"test-app-vcr\",\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"p7vx1jo54vwqk3z5\",\"created_at\":1736878376000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "541c941a16837ca1",
+        "fly-trace-id": "f6e5bfbb2af574519ab08572780008e7",
+        "date": "Tue, 14 Jan 2025 18:12:57 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1453",
+        "server": "Fly/1782112b (2025-01-09)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHK09H6J1FQRJDMJKMH5TMKS-chi"
+      },
+      "status_code": 201
+    }
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/non-existent-app",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "error",
+      "body": "timeout",
+      "headers": [],
+      "status_code": null
+    }
+  }
+]

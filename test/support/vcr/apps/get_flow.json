@@ -1,0 +1,61 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"app_name\":\"test-app-vcr-get\",\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"o4vnq50zlgj17emw\",\"created_at\":1736878377000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "8864f835a6bad756",
+        "fly-trace-id": "0c4aacf04a83c0cbdb81ce00729aec56",
+        "date": "Tue, 14 Jan 2025 18:12:59 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1495",
+        "server": "Fly/1782112b (2025-01-09)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHK09JV6FC6C6WB9N0YDD6A0-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-app-vcr-get",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"o4vnq50zlgj17emw\",\"name\":\"test-app-vcr-get\",\"status\":\"pending\",\"organization\":{\"name\":\"Mike Hostetler\",\"slug\":\"mike-hostetler\"}}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "6f0b8294ab701f81",
+        "fly-trace-id": "39be78e56987d040da4f8d05bea368b0",
+        "date": "Tue, 14 Jan 2025 18:12:59 GMT",
+        "content-length": "136",
+        "x-envoy-upstream-service-time": "0",
+        "server": "Fly/1782112b (2025-01-09)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHK09MD3TK14QTKR7BNXKNWN-chi"
+      },
+      "status_code": 200
+    }
+  }
+]

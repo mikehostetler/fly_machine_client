@@ -1,0 +1,61 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"app_name\":\"test-app-vcr-destroy\",\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"j3g8qv60m229dvxy\",\"created_at\":1736878385000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "c7ba6d5cfd1aede8",
+        "fly-trace-id": "7eda523bfe15b8f5e3b2098236c81e2e",
+        "date": "Tue, 14 Jan 2025 18:13:06 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1588",
+        "server": "Fly/1782112b (2025-01-09)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHK09SRHWTT3NF789GV1B5AQ-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-app-vcr-destroy",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "delete",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "bf575db790e82c80",
+        "fly-trace-id": "c4b3df994ba896eeec4da56cef11856c",
+        "date": "Tue, 14 Jan 2025 18:13:06 GMT",
+        "x-envoy-upstream-service-time": "104",
+        "server": "Fly/1782112b (2025-01-09)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHK09VBBCQ08STPEKRJSAMYK-chi",
+        "content-length": "0"
+      },
+      "status_code": 202
+    }
+  }
+]
