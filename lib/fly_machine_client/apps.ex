@@ -1,7 +1,7 @@
-defmodule FlyMachineApi.Apps do
+defmodule FlyMachineClient.Apps do
   @moduledoc false
 
-  import FlyMachineApi.Helpers
+  import FlyMachineClient.Helpers
 
   @create_app_options [
     app_name: [type: :string, required: true],
@@ -13,9 +13,9 @@ defmodule FlyMachineApi.Apps do
   @doc """
   Lists all apps for the authenticated user.
   """
-  @spec list_apps(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec list_apps(String.t(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def list_apps(org_slug \\ "personal", opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.get("/apps", query: [org_slug: org_slug])
@@ -25,9 +25,9 @@ defmodule FlyMachineApi.Apps do
   @doc """
   Creates a new app.
   """
-  @spec create_app(map() | keyword(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec create_app(map() | keyword(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def create_app(params, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
     params = if is_map(params), do: Enum.into(params, []), else: params
 
     with {:ok, validated_params} <- validate_params(params, @create_app_options) do
@@ -40,9 +40,9 @@ defmodule FlyMachineApi.Apps do
   @doc """
   Gets details of a specific app.
   """
-  @spec get_app(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec get_app(String.t(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def get_app(app_name, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.get("/apps/#{app_name}")
@@ -52,9 +52,9 @@ defmodule FlyMachineApi.Apps do
   @doc """
   Destroys (deletes) an app.
   """
-  @spec destroy_app(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec destroy_app(String.t(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def destroy_app(app_name, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.delete("/apps/#{app_name}")

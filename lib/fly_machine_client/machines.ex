@@ -1,9 +1,9 @@
-defmodule FlyMachineApi.Machines do
+defmodule FlyMachineClient.Machines do
   @moduledoc """
   Module for managing machines on Fly.io.
   """
 
-  import FlyMachineApi.Helpers
+  import FlyMachineClient.Helpers
 
   @update_machine_options [
     app_name: [type: :string, required: true],
@@ -30,9 +30,9 @@ defmodule FlyMachineApi.Machines do
   {:ok, machines} on success, where machines is a list of machine data.
   {:error, error()} on failure.
   """
-  @spec list_machines(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec list_machines(String.t(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def list_machines(app_name, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
     client |> Tesla.get("/apps/#{app_name}/machines") |> handle_request(:list_machines)
   end
 
@@ -50,9 +50,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the machine data.
   {:error, error()} on failure.
   """
-  @spec get_machine(String.t(), String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec get_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def get_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.get("/apps/#{app_name}/machines/#{machine_id}")
@@ -80,9 +81,9 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success where machine is the created machine data
   {:error, error} on failure
   """
-  @spec create_machine(map(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec create_machine(map(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def create_machine(params, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
     app_name = Map.get(params, :app_name)
 
     client
@@ -112,9 +113,9 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success where machine is the updated machine data
   {:error, error} on failure
   """
-  @spec update_machine(map(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec update_machine(map(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def update_machine(params, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     with {:ok, validated_params} <- validate_params(params, @update_machine_options) do
       app_name = Map.get(validated_params, :app_name)
@@ -141,10 +142,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, nil} on success.
   {:error, error()} on failure.
   """
-  @spec destroy_machine(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec destroy_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def destroy_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.delete("/apps/#{app_name}/machines/#{machine_id}")
@@ -165,10 +166,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the restarted machine data.
   {:error, error()} on failure.
   """
-  @spec restart_machine(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec restart_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def restart_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/machines/#{machine_id}/restart", %{})
@@ -190,10 +191,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the updated machine data.
   {:error, error()} on failure.
   """
-  @spec signal_machine(String.t(), String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec signal_machine(String.t(), String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def signal_machine(app_name, machine_id, signal, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/machines/#{machine_id}/signal", %{signal: signal})
@@ -214,10 +215,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the started machine data.
   {:error, error()} on failure.
   """
-  @spec start_machine(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec start_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def start_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/machines/#{machine_id}/start", %{})
@@ -238,10 +239,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the stopped machine data.
   {:error, error()} on failure.
   """
-  @spec stop_machine(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec stop_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def stop_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/machines/#{machine_id}/stop", %{})
@@ -262,10 +263,10 @@ defmodule FlyMachineApi.Machines do
   {:ok, machine} on success, where machine is the suspended machine data.
   {:error, error()} on failure.
   """
-  @spec suspend_machine(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec suspend_machine(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def suspend_machine(app_name, machine_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/machines/#{machine_id}/suspend", %{})
@@ -295,8 +296,8 @@ defmodule FlyMachineApi.Machines do
           String.t(),
           String.t(),
           integer(),
-          FlyMachineApi.options()
-        ) :: FlyMachineApi.response()
+          FlyMachineClient.options()
+        ) :: FlyMachineClient.response()
   def wait_for_machine_state(
         app_name,
         machine_id,
@@ -305,7 +306,7 @@ defmodule FlyMachineApi.Machines do
         timeout \\ 60,
         opts \\ []
       ) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
     url = "/apps/#{app_name}/machines/#{machine_id}/wait"
 
     client

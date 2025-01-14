@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.MachinesTest do
+defmodule FlyMachineClient.MachinesTest do
   use FlyCase
 
   @moduletag :capture_log
@@ -43,10 +43,10 @@ defmodule FlyMachineApi.MachinesTest do
     test "creates a new machine", %{app_params: app_params, machine_params: machine_params} do
       use_cassette "machines/create_flow" do
         # Create app first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
 
         # Create machine
-        {:ok, machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, machine} = FlyMachineClient.create_machine(machine_params)
         assert Map.has_key?(machine, "id")
         assert Map.has_key?(machine, "name")
         assert Map.has_key?(machine, "state")
@@ -58,11 +58,11 @@ defmodule FlyMachineApi.MachinesTest do
     test "returns error with invalid params", %{app_params: app_params} do
       use_cassette "machines/create_machine_invalid" do
         # Create app first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
 
         # Try to create machine with invalid params
         invalid_params = %{app_name: @test_app_name}
-        assert {:error, _} = FlyMachineApi.create_machine(invalid_params)
+        assert {:error, _} = FlyMachineClient.create_machine(invalid_params)
       end
     end
   end
@@ -71,11 +71,11 @@ defmodule FlyMachineApi.MachinesTest do
     test "lists machines for an app", %{app_params: app_params, machine_params: machine_params} do
       use_cassette "machines/list_flow" do
         # Create app and machine first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
-        {:ok, created_machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
+        {:ok, created_machine} = FlyMachineClient.create_machine(machine_params)
 
         # List machines
-        {:ok, machines} = FlyMachineApi.list_machines(@test_app_name)
+        {:ok, machines} = FlyMachineClient.list_machines(@test_app_name)
         assert is_list(machines)
         assert length(machines) > 0
 
@@ -90,10 +90,10 @@ defmodule FlyMachineApi.MachinesTest do
     test "returns empty list for app with no machines", %{app_params: app_params} do
       use_cassette "machines/list_machines_empty" do
         # Create app without machines
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
 
         # List machines
-        {:ok, machines} = FlyMachineApi.list_machines(@test_app_name)
+        {:ok, machines} = FlyMachineClient.list_machines(@test_app_name)
         assert is_list(machines)
         assert Enum.empty?(machines)
       end
@@ -104,11 +104,11 @@ defmodule FlyMachineApi.MachinesTest do
     test "gets machine details", %{app_params: app_params, machine_params: machine_params} do
       use_cassette "machines/get_flow" do
         # Create app and machine first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
-        {:ok, created_machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
+        {:ok, created_machine} = FlyMachineClient.create_machine(machine_params)
 
         # Get machine details
-        {:ok, machine} = FlyMachineApi.get_machine(@test_app_name, created_machine["id"])
+        {:ok, machine} = FlyMachineClient.get_machine(@test_app_name, created_machine["id"])
         assert machine["id"] == created_machine["id"]
         assert machine["name"] == machine_params.name
         assert machine["region"] == machine_params.region
@@ -119,10 +119,10 @@ defmodule FlyMachineApi.MachinesTest do
     test "returns error for non-existent machine", %{app_params: app_params} do
       use_cassette "machines/get_machine_not_found" do
         # Create app first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
 
         # Try to get non-existent machine
-        assert {:error, _} = FlyMachineApi.get_machine(@test_app_name, "non-existent-id")
+        assert {:error, _} = FlyMachineClient.get_machine(@test_app_name, "non-existent-id")
       end
     end
   end
@@ -134,8 +134,8 @@ defmodule FlyMachineApi.MachinesTest do
     } do
       use_cassette "machines/update_flow" do
         # Create app and machine first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
-        {:ok, created_machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
+        {:ok, created_machine} = FlyMachineClient.create_machine(machine_params)
 
         # Update machine
         update_params = %{
@@ -148,7 +148,7 @@ defmodule FlyMachineApi.MachinesTest do
           }
         }
 
-        {:ok, updated_machine} = FlyMachineApi.update_machine(update_params)
+        {:ok, updated_machine} = FlyMachineClient.update_machine(update_params)
         assert updated_machine["id"] == created_machine["id"]
         assert updated_machine["config"]["env"]["NODE_ENV"] == "production"
       end
@@ -158,15 +158,17 @@ defmodule FlyMachineApi.MachinesTest do
   describe "machine lifecycle operations" do
     setup %{app_params: app_params, machine_params: machine_params} do
       use_cassette "machines/lifecycle_setup" do
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
-        {:ok, machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
+        {:ok, machine} = FlyMachineClient.create_machine(machine_params)
         {:ok, %{machine: machine}}
       end
     end
 
     test "stop_machine/3", %{machine: machine} do
       use_cassette "machines/stop_flow" do
-        assert {:ok, stopped_machine} = FlyMachineApi.stop_machine(@test_app_name, machine["id"])
+        assert {:ok, stopped_machine} =
+                 FlyMachineClient.stop_machine(@test_app_name, machine["id"])
+
         assert stopped_machine["state"] == "stopped"
       end
     end
@@ -174,10 +176,12 @@ defmodule FlyMachineApi.MachinesTest do
     test "start_machine/3", %{machine: machine} do
       use_cassette "machines/start_flow" do
         # Stop first
-        {:ok, _} = FlyMachineApi.stop_machine(@test_app_name, machine["id"])
+        {:ok, _} = FlyMachineClient.stop_machine(@test_app_name, machine["id"])
 
         # Then start
-        assert {:ok, started_machine} = FlyMachineApi.start_machine(@test_app_name, machine["id"])
+        assert {:ok, started_machine} =
+                 FlyMachineClient.start_machine(@test_app_name, machine["id"])
+
         assert started_machine["state"] == "started"
       end
     end
@@ -185,7 +189,7 @@ defmodule FlyMachineApi.MachinesTest do
     test "restart_machine/3", %{machine: machine} do
       use_cassette "machines/restart_flow" do
         assert {:ok, restarted_machine} =
-                 FlyMachineApi.restart_machine(@test_app_name, machine["id"])
+                 FlyMachineClient.restart_machine(@test_app_name, machine["id"])
 
         assert restarted_machine["state"] == "started"
       end
@@ -194,7 +198,7 @@ defmodule FlyMachineApi.MachinesTest do
     test "signal_machine/4", %{machine: machine} do
       use_cassette "machines/signal_flow" do
         assert {:ok, signaled_machine} =
-                 FlyMachineApi.signal_machine(@test_app_name, machine["id"], "SIGTERM")
+                 FlyMachineClient.signal_machine(@test_app_name, machine["id"], "SIGTERM")
 
         assert signaled_machine["id"] == machine["id"]
       end
@@ -203,7 +207,7 @@ defmodule FlyMachineApi.MachinesTest do
     test "suspend_machine/3", %{machine: machine} do
       use_cassette "machines/suspend_flow" do
         assert {:ok, suspended_machine} =
-                 FlyMachineApi.suspend_machine(@test_app_name, machine["id"])
+                 FlyMachineClient.suspend_machine(@test_app_name, machine["id"])
 
         assert suspended_machine["state"] == "suspended"
       end
@@ -212,13 +216,13 @@ defmodule FlyMachineApi.MachinesTest do
     test "wait_for_machine_state/6", %{machine: machine} do
       use_cassette "machines/wait_state_flow" do
         # Stop the machine first
-        {:ok, _} = FlyMachineApi.stop_machine(@test_app_name, machine["id"])
+        {:ok, _} = FlyMachineClient.stop_machine(@test_app_name, machine["id"])
 
         # Start and wait for it to be ready
-        {:ok, _} = FlyMachineApi.start_machine(@test_app_name, machine["id"])
+        {:ok, _} = FlyMachineClient.start_machine(@test_app_name, machine["id"])
 
         assert {:ok, ready_machine} =
-                 FlyMachineApi.wait_for_machine_state(
+                 FlyMachineClient.wait_for_machine_state(
                    @test_app_name,
                    machine["id"],
                    machine["instance_id"],
@@ -235,24 +239,24 @@ defmodule FlyMachineApi.MachinesTest do
     test "destroys a machine", %{app_params: app_params, machine_params: machine_params} do
       use_cassette "machines/destroy_flow" do
         # Create app and machine first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
-        {:ok, created_machine} = FlyMachineApi.create_machine(machine_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
+        {:ok, created_machine} = FlyMachineClient.create_machine(machine_params)
 
         # Destroy machine
-        assert {:ok, _} = FlyMachineApi.destroy_machine(@test_app_name, created_machine["id"])
+        assert {:ok, _} = FlyMachineClient.destroy_machine(@test_app_name, created_machine["id"])
 
         # Verify machine is gone
-        assert {:error, _} = FlyMachineApi.get_machine(@test_app_name, created_machine["id"])
+        assert {:error, _} = FlyMachineClient.get_machine(@test_app_name, created_machine["id"])
       end
     end
 
     test "returns error for non-existent machine", %{app_params: app_params} do
       use_cassette "machines/destroy_machine_not_found" do
         # Create app first
-        {:ok, _app} = FlyMachineApi.create_app(app_params)
+        {:ok, _app} = FlyMachineClient.create_app(app_params)
 
         # Try to destroy non-existent machine
-        assert {:error, _} = FlyMachineApi.destroy_machine(@test_app_name, "non-existent-id")
+        assert {:error, _} = FlyMachineClient.destroy_machine(@test_app_name, "non-existent-id")
       end
     end
   end

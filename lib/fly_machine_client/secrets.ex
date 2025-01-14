@@ -1,9 +1,9 @@
-defmodule FlyMachineApi.Secrets do
+defmodule FlyMachineClient.Secrets do
   @moduledoc """
   Module for managing secrets on Fly.io machines.
   """
 
-  import FlyMachineApi.Helpers
+  import FlyMachineClient.Helpers
 
   @doc """
   Lists all secrets for a given app.
@@ -18,9 +18,9 @@ defmodule FlyMachineApi.Secrets do
   {:ok, secrets} on success where secrets is a list of secret data
   {:error, error} on failure
   """
-  @spec list_secrets(String.t(), FlyMachineApi.options()) :: FlyMachineApi.response()
+  @spec list_secrets(String.t(), FlyMachineClient.options()) :: FlyMachineClient.response()
   def list_secrets(app_name, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
     client |> Tesla.get("/apps/#{app_name}/secrets") |> handle_request(:list_secrets)
   end
 
@@ -40,10 +40,10 @@ defmodule FlyMachineApi.Secrets do
   {:ok, nil} on success (201 Created)
   {:error, error} on failure (400 Bad Request)
   """
-  @spec create_secret(String.t(), String.t(), String.t(), [integer()], FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec create_secret(String.t(), String.t(), String.t(), [integer()], FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def create_secret(app_name, secret_label, secret_type, value, opts \\ []) when is_list(value) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post(
@@ -68,10 +68,10 @@ defmodule FlyMachineApi.Secrets do
   {:ok, nil} on success (201 Created)
   {:error, error} on failure (400 Bad Request)
   """
-  @spec generate_secret(String.t(), String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec generate_secret(String.t(), String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def generate_secret(app_name, secret_label, secret_type, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post(
@@ -95,10 +95,10 @@ defmodule FlyMachineApi.Secrets do
   {:ok, nil} on success (200 OK)
   {:error, error} on failure
   """
-  @spec destroy_secret(String.t(), String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec destroy_secret(String.t(), String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def destroy_secret(app_name, secret_label, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.delete("/apps/#{app_name}/secrets/#{secret_label}")

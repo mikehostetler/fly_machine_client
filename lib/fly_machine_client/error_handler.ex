@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.ErrorHandlerMiddleware do
+defmodule FlyMachineClient.ErrorHandlerMiddleware do
   @moduledoc false
   @behaviour Tesla.Middleware
 

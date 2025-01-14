@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.Helpers do
+defmodule FlyMachineClient.Helpers do
   @moduledoc false
 
   require Logger

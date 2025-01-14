@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.AppsTest do
+defmodule FlyMachineClient.AppsTest do
   use FlyCase
 
   @moduletag :capture_log
@@ -14,7 +14,7 @@ defmodule FlyMachineApi.AppsTest do
       }
 
       use_cassette "apps/create_app" do
-        {:ok, app} = FlyMachineApi.create_app(app_params)
+        {:ok, app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(app, "id")
         assert Map.has_key?(app, "created_at")
       end
@@ -26,7 +26,7 @@ defmodule FlyMachineApi.AppsTest do
         enable_subdomains: true
       }
 
-      assert {:error, %NimbleOptions.ValidationError{}} = FlyMachineApi.create_app(app_params)
+      assert {:error, %NimbleOptions.ValidationError{}} = FlyMachineClient.create_app(app_params)
     end
   end
 
@@ -41,11 +41,11 @@ defmodule FlyMachineApi.AppsTest do
 
       use_cassette "apps/list_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Then list apps
-        {:ok, response} = FlyMachineApi.list_apps()
+        {:ok, response} = FlyMachineClient.list_apps()
         assert Map.has_key?(response, "apps")
         assert Map.has_key?(response, "total_apps")
 
@@ -74,11 +74,11 @@ defmodule FlyMachineApi.AppsTest do
 
       use_cassette "apps/get_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Then get its details
-        {:ok, app} = FlyMachineApi.get_app(app_params.app_name)
+        {:ok, app} = FlyMachineClient.get_app(app_params.app_name)
         assert app["name"] == app_params.app_name
         assert app["status"] == "pending"
       end
@@ -86,7 +86,8 @@ defmodule FlyMachineApi.AppsTest do
 
     test "returns error for non-existent app" do
       use_cassette "apps/get_app_not_found" do
-        assert {:error, "Unexpected error occurred"} = FlyMachineApi.get_app("non-existent-app")
+        assert {:error, "Unexpected error occurred"} =
+                 FlyMachineClient.get_app("non-existent-app")
       end
     end
   end
@@ -102,18 +103,18 @@ defmodule FlyMachineApi.AppsTest do
 
       use_cassette "apps/destroy_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Then delete it
-        assert {:ok, ""} = FlyMachineApi.destroy_app(app_params.app_name)
+        assert {:ok, ""} = FlyMachineClient.destroy_app(app_params.app_name)
       end
     end
 
     test "returns error for non-existent app" do
       use_cassette "apps/destroy_app_not_found" do
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.destroy_app("non-existent-app")
+                 FlyMachineClient.destroy_app("non-existent-app")
       end
     end
   end

@@ -13,7 +13,7 @@ defmodule Clean do
     ]
 
     Enum.each(apps, fn app ->
-      case FlyMachineApi.destroy_app(app) do
+      case FlyMachineClient.destroy_app(app) do
         {:ok, _} -> IO.puts("Deleted app #{app}")
         {:error, error} -> IO.puts("Error deleting app #{app}: #{error}")
       end

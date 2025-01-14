@@ -1,4 +1,4 @@
-defmodule FlyMachineApiTest do
+defmodule FlyMachineClientTest do
   use ExUnit.Case
 
   # describe "apps" do
@@ -19,7 +19,7 @@ defmodule FlyMachineApiTest do
   #        }}
   #     end)
 
-  #     assert {:ok, [app]} = FlyMachineApi.list_apps()
+  #     assert {:ok, [app]} = FlyMachineClient.list_apps()
   #     assert app["name"] == "test-app-1"
   #   end
 
@@ -47,7 +47,7 @@ defmodule FlyMachineApiTest do
   #        }}
   #     end)
 
-  #     assert {:ok, app} = FlyMachineApi.create_app(app_params)
+  #     assert {:ok, app} = FlyMachineClient.create_app(app_params)
   #     assert app["name"] == "test-app"
   #   end
 
@@ -57,7 +57,7 @@ defmodule FlyMachineApiTest do
   #       enable_subdomains: true
   #     }
 
-  #     assert {:error, :invalid_params} = FlyMachineApi.create_app(app_params)
+  #     assert {:error, :invalid_params} = FlyMachineClient.create_app(app_params)
   #   end
 
   #   test "get_app/2 returns app details" do
@@ -77,7 +77,7 @@ defmodule FlyMachineApiTest do
   #        }}
   #     end)
 
-  #     assert {:ok, app} = FlyMachineApi.get_app(app_name)
+  #     assert {:ok, app} = FlyMachineClient.get_app(app_name)
   #     assert app["name"] == app_name
   #   end
 
@@ -96,7 +96,7 @@ defmodule FlyMachineApiTest do
   #        }}
   #     end)
 
-  #     assert {:error, "App not found"} = FlyMachineApi.get_app(app_name)
+  #     assert {:error, "App not found"} = FlyMachineClient.get_app(app_name)
   #   end
 
   #   test "destroy_app/2 deletes an app" do
@@ -107,7 +107,7 @@ defmodule FlyMachineApiTest do
   #       {:ok, %Tesla.Env{status: 200, body: nil}}
   #     end)
 
-  #     assert {:ok, nil} = FlyMachineApi.destroy_app(app_name)
+  #     assert {:ok, nil} = FlyMachineClient.destroy_app(app_name)
   #   end
 
   #   test "destroy_app/2 handles not found error" do
@@ -125,7 +125,7 @@ defmodule FlyMachineApiTest do
   #        }}
   #     end)
 
-  #     assert {:error, "App not found"} = FlyMachineApi.destroy_app(app_name)
+  #     assert {:error, "App not found"} = FlyMachineClient.destroy_app(app_name)
   #   end
   # end
 end

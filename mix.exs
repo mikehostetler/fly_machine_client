@@ -1,9 +1,9 @@
-defmodule FlyMachineApi.MixProject do
+defmodule FlyMachineClient.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :fly_machine_api,
+      app: :fly_machine_client,
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,

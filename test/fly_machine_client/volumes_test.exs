@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.VolumesTest do
+defmodule FlyMachineClient.VolumesTest do
   use FlyCase
 
   @moduletag :capture_log
@@ -7,7 +7,7 @@ defmodule FlyMachineApi.VolumesTest do
   describe "list_volumes/3" do
     test "returns list of volumes" do
       use_cassette "volumes/list_volumes" do
-        {:ok, volumes} = FlyMachineApi.list_volumes(@test_app_name)
+        {:ok, volumes} = FlyMachineClient.list_volumes(@test_app_name)
         assert is_list(volumes)
 
         if length(volumes) > 0 do
@@ -23,7 +23,7 @@ defmodule FlyMachineApi.VolumesTest do
 
     test "returns list of volumes with summary" do
       use_cassette "volumes/list_volumes_summary" do
-        {:ok, volumes} = FlyMachineApi.list_volumes(@test_app_name, summary: true)
+        {:ok, volumes} = FlyMachineClient.list_volumes(@test_app_name, summary: true)
         assert is_list(volumes)
       end
     end
@@ -39,7 +39,7 @@ defmodule FlyMachineApi.VolumesTest do
       }
 
       use_cassette "volumes/create_volume" do
-        {:ok, volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(volume, "id")
         assert volume["name"] == volume_params.name
         assert volume["size_gb"] == volume_params.size_gb
@@ -59,11 +59,11 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/get_volume_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then get its details
-        {:ok, volume} = FlyMachineApi.get_volume(@test_app_name, created_volume["id"])
+        {:ok, volume} = FlyMachineClient.get_volume(@test_app_name, created_volume["id"])
         assert volume["id"] == created_volume["id"]
         assert volume["name"] == volume_params.name
         assert volume["size_gb"] == volume_params.size_gb
@@ -74,7 +74,7 @@ defmodule FlyMachineApi.VolumesTest do
     test "returns error for non-existent volume" do
       use_cassette "volumes/get_volume_not_found" do
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.get_volume(@test_app_name, "non-existent-volume")
+                 FlyMachineClient.get_volume(@test_app_name, "non-existent-volume")
       end
     end
   end
@@ -94,12 +94,12 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/update_volume_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then update it
         {:ok, volume} =
-          FlyMachineApi.update_volume(@test_app_name, created_volume["id"], update_params)
+          FlyMachineClient.update_volume(@test_app_name, created_volume["id"], update_params)
 
         assert volume["auto_backup_enabled"] == update_params.auto_backup_enabled
         assert volume["snapshot_retention"] == update_params.snapshot_retention
@@ -117,18 +117,18 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/delete_volume_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then delete it
-        {:ok, _} = FlyMachineApi.delete_volume(@test_app_name, created_volume["id"])
+        {:ok, _} = FlyMachineClient.delete_volume(@test_app_name, created_volume["id"])
       end
     end
 
     test "returns error for non-existent volume" do
       use_cassette "volumes/delete_volume_not_found" do
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.delete_volume(@test_app_name, "non-existent-volume")
+                 FlyMachineClient.delete_volume(@test_app_name, "non-existent-volume")
       end
     end
   end
@@ -143,11 +143,11 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/extend_volume_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then extend it
-        {:ok, response} = FlyMachineApi.extend_volume(@test_app_name, created_volume["id"], 2)
+        {:ok, response} = FlyMachineClient.extend_volume(@test_app_name, created_volume["id"], 2)
         assert Map.has_key?(response, "needs_restart")
         assert Map.has_key?(response, "volume")
         assert response["volume"]["size_gb"] == 2
@@ -165,12 +165,12 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/list_snapshots_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then list its snapshots
         {:ok, snapshots} =
-          FlyMachineApi.list_volume_snapshots(@test_app_name, created_volume["id"])
+          FlyMachineClient.list_volume_snapshots(@test_app_name, created_volume["id"])
 
         assert is_list(snapshots)
       end
@@ -187,11 +187,11 @@ defmodule FlyMachineApi.VolumesTest do
 
       use_cassette "volumes/create_snapshot_flow" do
         # Create a volume first
-        {:ok, created_volume} = FlyMachineApi.create_volume(@test_app_name, volume_params)
+        {:ok, created_volume} = FlyMachineClient.create_volume(@test_app_name, volume_params)
         assert Map.has_key?(created_volume, "id")
 
         # Then create a snapshot
-        {:ok, _} = FlyMachineApi.create_volume_snapshot(@test_app_name, created_volume["id"])
+        {:ok, _} = FlyMachineClient.create_volume_snapshot(@test_app_name, created_volume["id"])
       end
     end
   end

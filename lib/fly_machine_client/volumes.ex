@@ -1,17 +1,17 @@
-defmodule FlyMachineApi.Volumes do
+defmodule FlyMachineClient.Volumes do
   @moduledoc """
   API client for managing Fly.io volumes.
   """
 
-  import FlyMachineApi.Helpers
+  import FlyMachineClient.Helpers
 
   @doc """
   List all volumes associated with a specific app.
   """
-  @spec list(app_name :: String.t(), opts :: keyword(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec list(app_name :: String.t(), opts :: keyword(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def list(app_name, opts \\ [], client_opts \\ []) do
-    client = FlyMachineApi.new(client_opts)
+    client = FlyMachineClient.new(client_opts)
     query = if opts[:summary], do: [summary: opts[:summary]], else: []
 
     client
@@ -22,10 +22,10 @@ defmodule FlyMachineApi.Volumes do
   @doc """
   Create a volume for a specific app.
   """
-  @spec create(app_name :: String.t(), params :: map(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec create(app_name :: String.t(), params :: map(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def create(app_name, params, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/volumes", params)
@@ -35,10 +35,10 @@ defmodule FlyMachineApi.Volumes do
   @doc """
   Get details about a specific volume by its ID within an app.
   """
-  @spec get(app_name :: String.t(), volume_id :: String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec get(app_name :: String.t(), volume_id :: String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def get(app_name, volume_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.get("/apps/#{app_name}/volumes/#{volume_id}")
@@ -52,10 +52,10 @@ defmodule FlyMachineApi.Volumes do
           app_name :: String.t(),
           volume_id :: String.t(),
           params :: map(),
-          FlyMachineApi.options()
-        ) :: FlyMachineApi.response()
+          FlyMachineClient.options()
+        ) :: FlyMachineClient.response()
   def update(app_name, volume_id, params, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.put("/apps/#{app_name}/volumes/#{volume_id}", params)
@@ -65,10 +65,10 @@ defmodule FlyMachineApi.Volumes do
   @doc """
   Delete a specific volume within an app by volume ID.
   """
-  @spec delete(app_name :: String.t(), volume_id :: String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec delete(app_name :: String.t(), volume_id :: String.t(), FlyMachineClient.options()) ::
+          FlyMachineClient.response()
   def delete(app_name, volume_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.delete("/apps/#{app_name}/volumes/#{volume_id}")
@@ -82,10 +82,10 @@ defmodule FlyMachineApi.Volumes do
           app_name :: String.t(),
           volume_id :: String.t(),
           size_gb :: integer(),
-          FlyMachineApi.options()
-        ) :: FlyMachineApi.response()
+          FlyMachineClient.options()
+        ) :: FlyMachineClient.response()
   def extend(app_name, volume_id, size_gb, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.put("/apps/#{app_name}/volumes/#{volume_id}/extend", %{size_gb: size_gb})
@@ -95,10 +95,14 @@ defmodule FlyMachineApi.Volumes do
   @doc """
   List all snapshots for a specific volume within an app.
   """
-  @spec list_snapshots(app_name :: String.t(), volume_id :: String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec list_snapshots(
+          app_name :: String.t(),
+          volume_id :: String.t(),
+          FlyMachineClient.options()
+        ) ::
+          FlyMachineClient.response()
   def list_snapshots(app_name, volume_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.get("/apps/#{app_name}/volumes/#{volume_id}/snapshots")
@@ -108,10 +112,14 @@ defmodule FlyMachineApi.Volumes do
   @doc """
   Create a snapshot for a specific volume within an app.
   """
-  @spec create_snapshot(app_name :: String.t(), volume_id :: String.t(), FlyMachineApi.options()) ::
-          FlyMachineApi.response()
+  @spec create_snapshot(
+          app_name :: String.t(),
+          volume_id :: String.t(),
+          FlyMachineClient.options()
+        ) ::
+          FlyMachineClient.response()
   def create_snapshot(app_name, volume_id, opts \\ []) do
-    client = FlyMachineApi.new(opts)
+    client = FlyMachineClient.new(opts)
 
     client
     |> Tesla.post("/apps/#{app_name}/volumes/#{volume_id}/snapshots", %{})

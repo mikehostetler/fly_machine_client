@@ -1,4 +1,4 @@
-defmodule FlyMachineApi.SecretsTest do
+defmodule FlyMachineClient.SecretsTest do
   use FlyCase
 
   @moduletag :capture_log
@@ -19,12 +19,12 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/list_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Create a secret to list
         assert {:ok, _} =
-                 FlyMachineApi.create_secret(
+                 FlyMachineClient.create_secret(
                    app_params.app_name,
                    @test_secret_label,
                    @test_secret_type,
@@ -32,7 +32,7 @@ defmodule FlyMachineApi.SecretsTest do
                  )
 
         # List secrets
-        assert {:ok, secrets} = FlyMachineApi.list_secrets(app_params.app_name)
+        assert {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
         assert is_list(secrets)
 
         # Verify the secret we created is in the list
@@ -52,11 +52,11 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/list_empty" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # List secrets
-        assert {:ok, secrets} = FlyMachineApi.list_secrets(app_params.app_name)
+        assert {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
         assert is_list(secrets)
         assert Enum.empty?(secrets)
       end
@@ -74,12 +74,12 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/create_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Create a secret
         assert {:ok, _} =
-                 FlyMachineApi.create_secret(
+                 FlyMachineClient.create_secret(
                    app_params.app_name,
                    @test_secret_label,
                    @test_secret_type,
@@ -87,7 +87,7 @@ defmodule FlyMachineApi.SecretsTest do
                  )
 
         # Verify it exists
-        {:ok, secrets} = FlyMachineApi.list_secrets(app_params.app_name)
+        {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
         secret = Enum.find(secrets, &(&1["label"] == @test_secret_label))
         assert secret
         assert secret["type"] == @test_secret_type
@@ -97,7 +97,7 @@ defmodule FlyMachineApi.SecretsTest do
     test "returns error for non-existent app" do
       use_cassette "secrets/create_error" do
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.create_secret(
+                 FlyMachineClient.create_secret(
                    "non-existent-app",
                    @test_secret_label,
                    @test_secret_type,
@@ -118,19 +118,19 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/generate_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Generate a secret
         assert {:ok, _} =
-                 FlyMachineApi.generate_secret(
+                 FlyMachineClient.generate_secret(
                    app_params.app_name,
                    @test_secret_label,
                    @test_secret_type
                  )
 
         # Verify it exists
-        {:ok, secrets} = FlyMachineApi.list_secrets(app_params.app_name)
+        {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
         secret = Enum.find(secrets, &(&1["label"] == @test_secret_label))
         assert secret
         assert secret["type"] == @test_secret_type
@@ -140,7 +140,7 @@ defmodule FlyMachineApi.SecretsTest do
     test "returns error for non-existent app" do
       use_cassette "secrets/generate_error" do
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.generate_secret(
+                 FlyMachineClient.generate_secret(
                    "non-existent-app",
                    @test_secret_label,
                    @test_secret_type
@@ -160,12 +160,12 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/destroy_flow" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         # Create a secret
         assert {:ok, _} =
-                 FlyMachineApi.create_secret(
+                 FlyMachineClient.create_secret(
                    app_params.app_name,
                    @test_secret_label,
                    @test_secret_type,
@@ -173,10 +173,10 @@ defmodule FlyMachineApi.SecretsTest do
                  )
 
         # Destroy the secret
-        assert {:ok, _} = FlyMachineApi.destroy_secret(app_params.app_name, @test_secret_label)
+        assert {:ok, _} = FlyMachineClient.destroy_secret(app_params.app_name, @test_secret_label)
 
         # Verify it's gone
-        {:ok, secrets} = FlyMachineApi.list_secrets(app_params.app_name)
+        {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
         refute Enum.any?(secrets, &(&1["label"] == @test_secret_label))
       end
     end
@@ -191,11 +191,11 @@ defmodule FlyMachineApi.SecretsTest do
 
       use_cassette "secrets/destroy_error" do
         # Create an app first
-        {:ok, created_app} = FlyMachineApi.create_app(app_params)
+        {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
         assert {:error, "Unexpected error occurred"} =
-                 FlyMachineApi.destroy_secret(app_params.app_name, "non-existent-secret")
+                 FlyMachineClient.destroy_secret(app_params.app_name, "non-existent-secret")
       end
     end
   end
