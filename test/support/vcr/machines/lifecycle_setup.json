@@ -1,0 +1,91 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true,\"app_name\":\"test-machine-app-vcr-lifecycle-394\"}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"8gnr14okvg8qy7wm\",\"created_at\":1737212320000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "73f2f48ca203b013",
+        "fly-trace-id": "321eabe08307bbc170e982acc40b35ad",
+        "date": "Sat, 18 Jan 2025 14:58:41 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1375",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRP6WD0KESH0P7DZVJ3PW-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{\"name\":\"test-machine\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"image\":\"node:20-slim\",\"services\":[{\"ports\":[{\"handlers\":[\"http\"],\"port\":3000}],\"protocol\":\"tcp\"}]},\"region\":\"ewr\",\"app_name\":\"test-machine-app-vcr-lifecycle-394\"}",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-lifecycle-394/machines",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"6e82643a2632d8\",\"name\":\"test-machine\",\"state\":\"created\",\"region\":\"ewr\",\"instance_id\":\"01JHWYRR3EDKFCA5PF1H39M7YY\",\"private_ip\":\"fdaa:d:4f61:a7b:94:16b7:146e:2\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"init\":{},\"guest\":{\"cpu_kind\":\"shared\",\"cpus\":1,\"memory_mb\":256},\"services\":[{\"protocol\":\"tcp\",\"ports\":[{\"port\":3000,\"handlers\":[\"http\"]}],\"force_instance_key\":null}],\"image\":\"node:20-slim\",\"restart\":{\"policy\":\"on-failure\",\"max_retries\":10}},\"incomplete_config\":null,\"image_ref\":{\"registry\":\"docker-hub-mirror.fly.io\",\"repository\":\"library/node\",\"tag\":\"20-slim\",\"digest\":\"sha256:35eccf0e5cdb40b8ba3531e1b756d0ed52ec6e9d74c1756cc6503e8734effd27\",\"labels\":null},\"created_at\":\"2025-01-18T14:58:41Z\",\"updated_at\":\"2025-01-18T14:58:41Z\",\"events\":[{\"id\":\"01JHWYRR63HT8XXSYPRDWVT5W3\",\"type\":\"launch\",\"status\":\"created\",\"source\":\"user\",\"timestamp\":1737212321987}],\"host_status\":\"ok\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "0562e66cd6c1ea69",
+        "fly-trace-id": "bd7146308c58dfb76fae302ec3f655d2",
+        "date": "Sat, 18 Jan 2025 14:58:42 GMT",
+        "content-length": "879",
+        "x-envoy-upstream-service-time": "717",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRQMSVNDS00GN8A0YXC9W-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-lifecycle-394/machines/6e82643a2632d8/wait?instance_id=01JHWYRR3EDKFCA5PF1H39M7YY&state=started&timeout=30",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"ok\":true}",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "ee93b1962208cec0",
+        "fly-trace-id": "48f704e7fe548c4f67f46cb20102932e",
+        "date": "Sat, 18 Jan 2025 14:58:45 GMT",
+        "content-length": "11",
+        "x-envoy-upstream-service-time": "3728",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRREP84VX5X0PRQ2DAMJ8-chi"
+      },
+      "status_code": 200
+    }
+  }
+]

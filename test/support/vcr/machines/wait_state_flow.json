@@ -1,0 +1,29 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-lifecycle-394/machines//wait?instance_id=&state=started&timeout=30",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "",
+      "headers": {
+        "location": "/v1/apps/test-machine-app-vcr-lifecycle-394/machines/wait?instance_id=&state=started&timeout=30",
+        "date": "Sat, 18 Jan 2025 14:58:46 GMT",
+        "x-envoy-upstream-service-time": "0",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRW8P8JM80W02QE9F3GS0-chi",
+        "content-length": "0"
+      },
+      "status_code": 301
+    }
+  }
+]

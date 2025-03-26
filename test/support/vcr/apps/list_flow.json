@@ -2,60 +2,31 @@
   {
     "request": {
       "options": [],
-      "body": "{\"app_name\":\"test-app-vcr-list\",\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true}",
+      "body": "{\"org_slug\":\"personal\",\"app_name\":\"test-app-vcr-list\",\"network\":\"custom-network\",\"enable_subdomains\":true}",
       "url": "https://api.machines.dev/v1/apps",
       "headers": {
         "content-type": "application/json",
         "Authorization": "***"
       },
-      "method": "post",
-      "request_body": ""
+      "request_body": "",
+      "method": "post"
     },
     "response": {
       "binary": false,
       "type": "ok",
-      "body": "{\"id\":\"z4k69d658301p5mx\",\"created_at\":1736878374000}\n",
+      "body": "{\"error\":\"unauthorized\"}\n",
       "headers": {
         "content-type": "application/json; charset=utf-8",
-        "fly-span-id": "d03bce0548545f17",
-        "fly-trace-id": "7a01cbd89cd3e32d6daa8b0d2d7edd41",
-        "date": "Tue, 14 Jan 2025 18:12:55 GMT",
-        "content-length": "53",
-        "x-envoy-upstream-service-time": "1139",
-        "server": "Fly/1782112b (2025-01-09)",
-        "via": "1.1 fly.io",
-        "fly-request-id": "01JHK09FPB3X214ZW72Q3C56CT-chi"
+        "fly-span-id": "1f2e680f233384b9",
+        "fly-trace-id": "1305ba9376994746cd99fab57a772a9f",
+        "date": "Wed, 26 Mar 2025 16:12:47 GMT",
+        "content-length": "25",
+        "x-envoy-upstream-service-time": "84",
+        "server": "Fly/fe78b1aa (2025-03-20)",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "fly-request-id": "01JQ9KMJNPK1SKP05S40C3SR13-chi"
       },
-      "status_code": 201
-    }
-  },
-  {
-    "request": {
-      "options": [],
-      "body": "",
-      "url": "https://api.machines.dev/v1/apps?org_slug=personal",
-      "headers": {
-        "Authorization": "***"
-      },
-      "method": "get",
-      "request_body": ""
-    },
-    "response": {
-      "binary": false,
-      "type": "ok",
-      "body": "{\"total_apps\":2,\"apps\":[{\"id\":\"682kqppv8nzqd543\",\"name\":\"withered-flower-9686\",\"machine_count\":1,\"network\":\"default\"},{\"id\":\"z4k69d658301p5mx\",\"name\":\"test-app-vcr-list\",\"machine_count\":0,\"network\":\"custom-network\"}]}\n",
-      "headers": {
-        "content-type": "application/json; charset=utf-8",
-        "fly-span-id": "58a94c1945b0c989",
-        "fly-trace-id": "35bbbe06012ff51411341fd4fc38daaa",
-        "date": "Tue, 14 Jan 2025 18:12:55 GMT",
-        "content-length": "218",
-        "x-envoy-upstream-service-time": "114",
-        "server": "Fly/1782112b (2025-01-09)",
-        "via": "1.1 fly.io",
-        "fly-request-id": "01JHK09GX9QZM2KTTTDBT4DX2H-chi"
-      },
-      "status_code": 200
+      "status_code": 500
     }
   }
 ]

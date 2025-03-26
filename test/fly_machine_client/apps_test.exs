@@ -17,6 +17,9 @@ defmodule FlyMachineClient.AppsTest do
         {:ok, app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(app, "id")
         assert Map.has_key?(app, "created_at")
+
+        # Clean up
+        {:ok, _} = FlyMachineClient.destroy_app(app_params.app_name)
       end
     end
 
@@ -59,6 +62,9 @@ defmodule FlyMachineClient.AppsTest do
         assert Map.has_key?(created_app, "name")
         assert Map.has_key?(created_app, "machine_count")
         assert Map.has_key?(created_app, "network")
+
+        # Clean up
+        {:ok, _} = FlyMachineClient.destroy_app(app_params.app_name)
       end
     end
   end
@@ -81,6 +87,9 @@ defmodule FlyMachineClient.AppsTest do
         {:ok, app} = FlyMachineClient.get_app(app_params.app_name)
         assert app["name"] == app_params.app_name
         assert app["status"] == "pending"
+
+        # Clean up
+        {:ok, _} = FlyMachineClient.destroy_app(app_params.app_name)
       end
     end
 

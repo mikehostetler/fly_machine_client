@@ -1,0 +1,120 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true,\"app_name\":\"test-machine-app-vcr-get\"}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"zgrlqn3wgx71vd47\",\"created_at\":1737212326000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "3e7587c660757bbd",
+        "fly-trace-id": "0ac7b61e05c45d1bd5ebcf1085b1b1e9",
+        "date": "Sat, 18 Jan 2025 14:58:47 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1528",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRWDRE3YE1QH3R2E7PWPQ-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{\"name\":\"test-machine\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"image\":\"node:20-slim\",\"services\":[{\"ports\":[{\"handlers\":[\"http\"],\"port\":3000}],\"protocol\":\"tcp\"}]},\"region\":\"ewr\",\"app_name\":\"test-machine-app-vcr-get\"}",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-get/machines",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"0806d4ef5d4258\",\"name\":\"test-machine\",\"state\":\"created\",\"region\":\"ewr\",\"instance_id\":\"01JHWYRYKWCMCC5RZJD4246PK8\",\"private_ip\":\"fdaa:d:4f61:a7b:10:b910:305f:2\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"init\":{},\"guest\":{\"cpu_kind\":\"shared\",\"cpus\":1,\"memory_mb\":256},\"services\":[{\"protocol\":\"tcp\",\"ports\":[{\"port\":3000,\"handlers\":[\"http\"]}],\"force_instance_key\":null}],\"image\":\"node:20-slim\",\"restart\":{\"policy\":\"on-failure\",\"max_retries\":10}},\"incomplete_config\":null,\"image_ref\":{\"registry\":\"docker-hub-mirror.fly.io\",\"repository\":\"library/node\",\"tag\":\"20-slim\",\"digest\":\"sha256:35eccf0e5cdb40b8ba3531e1b756d0ed52ec6e9d74c1756cc6503e8734effd27\",\"labels\":null},\"created_at\":\"2025-01-18T14:58:48Z\",\"updated_at\":\"2025-01-18T14:58:48Z\",\"events\":[{\"id\":\"01JHWYRYNQ0943W3BGWV89095E\",\"type\":\"launch\",\"status\":\"created\",\"source\":\"user\",\"timestamp\":1737212328631}],\"host_status\":\"ok\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "d05ba6c049e6bad9",
+        "fly-trace-id": "89d36c6380e575cb53d0eecf20994339",
+        "date": "Sat, 18 Jan 2025 14:58:48 GMT",
+        "content-length": "879",
+        "x-envoy-upstream-service-time": "800",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRY1Z2GSD4N0HV6HQMFVB-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-get/machines/0806d4ef5d4258",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"0806d4ef5d4258\",\"name\":\"test-machine\",\"state\":\"created\",\"region\":\"ewr\",\"instance_id\":\"01JHWYRYKWCMCC5RZJD4246PK8\",\"private_ip\":\"fdaa:d:4f61:a7b:10:b910:305f:2\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"init\":{},\"guest\":{\"cpu_kind\":\"shared\",\"cpus\":1,\"memory_mb\":256},\"services\":[{\"protocol\":\"tcp\",\"ports\":[{\"port\":3000,\"handlers\":[\"http\"]}],\"force_instance_key\":null}],\"image\":\"node:20-slim\",\"restart\":{\"policy\":\"on-failure\",\"max_retries\":10}},\"incomplete_config\":null,\"image_ref\":{\"registry\":\"docker-hub-mirror.fly.io\",\"repository\":\"library/node\",\"tag\":\"20-slim\",\"digest\":\"sha256:35eccf0e5cdb40b8ba3531e1b756d0ed52ec6e9d74c1756cc6503e8734effd27\",\"labels\":null},\"created_at\":\"2025-01-18T14:58:48Z\",\"updated_at\":\"2025-01-18T14:58:48Z\",\"events\":[{\"id\":\"01JHWYRYNQ0943W3BGWV89095E\",\"type\":\"launch\",\"status\":\"created\",\"source\":\"user\",\"timestamp\":1737212328631}],\"host_status\":\"ok\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "26f12657f87d994f",
+        "fly-trace-id": "d0824c6b23fd0f84813f77b94c0866e4",
+        "date": "Sat, 18 Jan 2025 14:58:49 GMT",
+        "content-length": "879",
+        "x-envoy-upstream-service-time": "539",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRYYJHX09RQFYB583QQTK-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-get",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "delete",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "b75611405e630347",
+        "fly-trace-id": "69c350262b9493dd37d5eaa034b0027c",
+        "date": "Sat, 18 Jan 2025 14:58:49 GMT",
+        "x-envoy-upstream-service-time": "85",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRZGQQWTMA6J3MGGYH1JS-chi",
+        "content-length": "0"
+      },
+      "status_code": 202
+    }
+  }
+]

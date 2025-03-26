@@ -7,8 +7,8 @@
       "headers": {
         "Authorization": "***"
       },
-      "method": "delete",
-      "request_body": ""
+      "request_body": "",
+      "method": "delete"
     },
     "response": {
       "binary": false,

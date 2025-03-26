@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true,\"app_name\":\"test-machine-app-vcr-update\"}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"error\":\"Validation failed: Name has already been taken\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "7ba14c1f16480476",
+        "fly-trace-id": "6150b2221078471c44cc9e505e0295aa",
+        "date": "Sat, 18 Jan 2025 14:58:49 GMT",
+        "content-length": "59",
+        "x-envoy-upstream-service-time": "159",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYRZRBQ575B06GN31796AF-chi"
+      },
+      "status_code": 422
+    }
+  }
+]

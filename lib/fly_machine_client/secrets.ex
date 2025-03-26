@@ -32,7 +32,7 @@ defmodule FlyMachineClient.Secrets do
   - app_name: The name of the app to create the secret for
   - secret_label: The label/name for the secret
   - secret_type: The type of secret
-  - value: The secret value as a list of integers
+  - value: The secret value as a binary string or charlist
   - opts: Optional list of options
 
   ## Returns
@@ -40,10 +40,19 @@ defmodule FlyMachineClient.Secrets do
   {:ok, nil} on success (201 Created)
   {:error, error} on failure (400 Bad Request)
   """
-  @spec create_secret(String.t(), String.t(), String.t(), [integer()], FlyMachineClient.options()) ::
+  @spec create_secret(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t() | charlist(),
+          FlyMachineClient.options()
+        ) ::
           FlyMachineClient.response()
-  def create_secret(app_name, secret_label, secret_type, value, opts \\ []) when is_list(value) do
+  def create_secret(app_name, secret_label, secret_type, value, opts \\ []) do
     client = FlyMachineClient.new(opts)
+
+    # Convert value to array of integers if it's a binary
+    value = if is_binary(value), do: String.to_charlist(value), else: value
 
     client
     |> Tesla.post(

@@ -2,13 +2,14 @@
   {
     "request": {
       "options": [],
-      "body": "",
-      "url": "https://api.machines.dev/v1/apps/non-existent-app",
+      "body": "{\"name\":\"test-volume-get\",\"size_gb\":1,\"region\":\"ord\"}",
+      "url": "https://api.machines.dev/v1/apps/test-app-vcr/volumes",
       "headers": {
+        "content-type": "application/json",
         "Authorization": "***"
       },
       "request_body": "",
-      "method": "get"
+      "method": "post"
     },
     "response": {
       "binary": false,

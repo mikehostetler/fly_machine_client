@@ -28,9 +28,15 @@ defmodule FlyMachineClient.Helpers do
   def handle_response({:error, reason}), do: {:error, build_error(nil, reason)}
 
   defp build_error(status, details) do
+    message =
+      case details do
+        %{"error" => error} -> error
+        _ -> error_message(status)
+      end
+
     %{
       status: status || 500,
-      message: error_message(status),
+      message: message,
       details: details
     }
   end

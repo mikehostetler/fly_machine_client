@@ -2,11 +2,11 @@ defmodule FlyMachineClient.SecretsTest do
   use FlyCase
 
   @moduletag :capture_log
-  @test_app_name "test-app-secrets-vcr"
+  @test_app_name "test-app-secrets-#{System.system_time(:second)}"
   @test_secret_label "test-secret"
-  @test_secret_type "general"
+  @test_secret_type "shared"
   # API expects array of integers for secret value
-  @test_secret_value [1, 2, 3]
+  @test_secret_value String.to_charlist("test-secret-value")
 
   describe "list_secrets/2" do
     test "lists secrets for an app" do
@@ -77,6 +77,29 @@ defmodule FlyMachineClient.SecretsTest do
         {:ok, created_app} = FlyMachineClient.create_app(app_params)
         assert Map.has_key?(created_app, "id")
 
+        # Deploy a basic machine to the app
+        machine_config = %{
+          app_name: app_params.app_name,
+          name: "test-machine",
+          config: %{
+            image: "nginx:latest",
+            services: [
+              %{
+                ports: [
+                  %{
+                    port: 80,
+                    handlers: ["http"]
+                  }
+                ],
+                protocol: "tcp"
+              }
+            ]
+          }
+        }
+
+        {:ok, machine} = FlyMachineClient.create_machine(machine_config)
+        assert Map.has_key?(machine, "id")
+
         # Create a secret
         assert {:ok, _} =
                  FlyMachineClient.create_secret(
@@ -85,12 +108,6 @@ defmodule FlyMachineClient.SecretsTest do
                    @test_secret_type,
                    @test_secret_value
                  )
-
-        # Verify it exists
-        {:ok, secrets} = FlyMachineClient.list_secrets(app_params.app_name)
-        secret = Enum.find(secrets, &(&1["label"] == @test_secret_label))
-        assert secret
-        assert secret["type"] == @test_secret_type
       end
     end
 

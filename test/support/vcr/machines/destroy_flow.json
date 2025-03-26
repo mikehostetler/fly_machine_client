@@ -1,0 +1,150 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-destroy-342/machines/e784126fe16e98/wait?instance_id=01JHWYS1VQZ42CFQZCW47341Q5&state=started&timeout=30",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "get",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"ok\":true}",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "ad3668413fe6be13",
+        "fly-trace-id": "9454d8cfea7659684d6877a19e84fc3b",
+        "date": "Sat, 18 Jan 2025 14:58:56 GMT",
+        "content-length": "11",
+        "x-envoy-upstream-service-time": "4446",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS25KKTRVB2059B79MG5V-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true,\"app_name\":\"test-machine-app-vcr-destroy-342\"}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"g3zmqx72rkg1dlp4\",\"created_at\":1737212330000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "f40dc80cd447f0f4",
+        "fly-trace-id": "f13bfdf42d0f20b341b80f276965a32f",
+        "date": "Sat, 18 Jan 2025 14:58:51 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1328",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS0296SQ86B44YWYATJB6-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{\"name\":\"test-machine\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"image\":\"node:20-slim\",\"services\":[{\"ports\":[{\"handlers\":[\"http\"],\"port\":3000}],\"protocol\":\"tcp\"}]},\"region\":\"ewr\",\"app_name\":\"test-machine-app-vcr-destroy-342\"}",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-destroy-342/machines",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"e784126fe16e98\",\"name\":\"test-machine\",\"state\":\"created\",\"region\":\"ewr\",\"instance_id\":\"01JHWYS1VQZ42CFQZCW47341Q5\",\"private_ip\":\"fdaa:d:4f61:a7b:94:209e:3731:2\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"init\":{},\"guest\":{\"cpu_kind\":\"shared\",\"cpus\":1,\"memory_mb\":256},\"services\":[{\"protocol\":\"tcp\",\"ports\":[{\"port\":3000,\"handlers\":[\"http\"]}],\"force_instance_key\":null}],\"image\":\"node:20-slim\",\"restart\":{\"policy\":\"on-failure\",\"max_retries\":10}},\"incomplete_config\":null,\"image_ref\":{\"registry\":\"docker-hub-mirror.fly.io\",\"repository\":\"library/node\",\"tag\":\"20-slim\",\"digest\":\"sha256:35eccf0e5cdb40b8ba3531e1b756d0ed52ec6e9d74c1756cc6503e8734effd27\",\"labels\":null},\"created_at\":\"2025-01-18T14:58:51Z\",\"updated_at\":\"2025-01-18T14:58:51Z\",\"events\":[{\"id\":\"01JHWYS1YSKTET460G7TGMRSMH\",\"type\":\"launch\",\"status\":\"created\",\"source\":\"user\",\"timestamp\":1737212331993}],\"host_status\":\"ok\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "2810965bff39e34c",
+        "fly-trace-id": "8ea45822c62d9f68981b6e6ee67554f9",
+        "date": "Sat, 18 Jan 2025 14:58:52 GMT",
+        "content-length": "879",
+        "x-envoy-upstream-service-time": "749",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS1CY6R0JFTK3ZCZRG62J-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{}",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-destroy-342/machines/e784126fe16e98/stop",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"ok\":true}",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "283eda6be5780f4a",
+        "fly-trace-id": "9d278601b64cf01474cbcb016d9c0135",
+        "date": "Sat, 18 Jan 2025 14:58:56 GMT",
+        "content-length": "11",
+        "x-envoy-upstream-service-time": "39",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS6HYC51R0TSJ3JZESC4S-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-destroy-342/machines/e784126fe16e98",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "delete",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"error\":\"failed_precondition: unable to destroy machine, not currently stopped or suspended\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "e5c0ec01ba6325aa",
+        "fly-trace-id": "a5d12ceccb3241cd70f6ec4c8b8f1a2c",
+        "date": "Sat, 18 Jan 2025 14:58:56 GMT",
+        "content-length": "95",
+        "x-envoy-upstream-service-time": "19",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS6MCY8R0XECAQQSN91JD-chi"
+      },
+      "status_code": 412
+    }
+  }
+]

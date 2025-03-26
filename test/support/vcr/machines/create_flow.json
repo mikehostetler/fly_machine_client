@@ -1,0 +1,91 @@
+[
+  {
+    "request": {
+      "options": [],
+      "body": "{\"org_slug\":\"personal\",\"network\":\"custom-network\",\"enable_subdomains\":true,\"app_name\":\"test-machine-app-vcr-create\"}",
+      "url": "https://api.machines.dev/v1/apps",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"z4k69d6nk041p5mx\",\"created_at\":1737212337000}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "24ac820e7619c1b4",
+        "fly-trace-id": "1fe7513f4072586d84d76e9c2799323d",
+        "date": "Sat, 18 Jan 2025 14:58:58 GMT",
+        "content-length": "53",
+        "x-envoy-upstream-service-time": "1484",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS6XC7KC47MNJA2QP2YS9-chi"
+      },
+      "status_code": 201
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "{\"name\":\"test-machine\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"image\":\"node:20-slim\",\"services\":[{\"ports\":[{\"handlers\":[\"http\"],\"port\":3000}],\"protocol\":\"tcp\"}]},\"region\":\"ewr\",\"app_name\":\"test-machine-app-vcr-create\"}",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-create/machines",
+      "headers": {
+        "content-type": "application/json",
+        "Authorization": "***"
+      },
+      "method": "post",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"id\":\"6833e4db1e9468\",\"name\":\"test-machine\",\"state\":\"created\",\"region\":\"ewr\",\"instance_id\":\"01JHWYS8XSXSV4GJJ0YKDTCW8A\",\"private_ip\":\"fdaa:d:4f61:a7b:10:103b:feb4:2\",\"config\":{\"env\":{\"NODE_ENV\":\"test\"},\"init\":{},\"guest\":{\"cpu_kind\":\"shared\",\"cpus\":1,\"memory_mb\":256},\"services\":[{\"protocol\":\"tcp\",\"ports\":[{\"port\":3000,\"handlers\":[\"http\"]}],\"force_instance_key\":null}],\"image\":\"node:20-slim\",\"restart\":{\"policy\":\"on-failure\",\"max_retries\":10}},\"incomplete_config\":null,\"image_ref\":{\"registry\":\"docker-hub-mirror.fly.io\",\"repository\":\"library/node\",\"tag\":\"20-slim\",\"digest\":\"sha256:35eccf0e5cdb40b8ba3531e1b756d0ed52ec6e9d74c1756cc6503e8734effd27\",\"labels\":null},\"created_at\":\"2025-01-18T14:58:59Z\",\"updated_at\":\"2025-01-18T14:58:59Z\",\"events\":[{\"id\":\"01JHWYS8ZQCKBEJG5E745H1NXD\",\"type\":\"launch\",\"status\":\"created\",\"source\":\"user\",\"timestamp\":1737212339191}],\"host_status\":\"ok\"}\n",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "2664d21f72053c00",
+        "fly-trace-id": "608cac584ba89db627317279da456131",
+        "date": "Sat, 18 Jan 2025 14:58:59 GMT",
+        "content-length": "879",
+        "x-envoy-upstream-service-time": "751",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS8D584GY0GHBDF9VGQGM-chi"
+      },
+      "status_code": 200
+    }
+  },
+  {
+    "request": {
+      "options": [],
+      "body": "",
+      "url": "https://api.machines.dev/v1/apps/test-machine-app-vcr-create",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "delete",
+      "request_body": ""
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-span-id": "a19386b52b643450",
+        "fly-trace-id": "cc5ed2d038d0e016ddfda745a92c55b4",
+        "date": "Sat, 18 Jan 2025 14:58:59 GMT",
+        "x-envoy-upstream-service-time": "96",
+        "server": "Fly/a3e18ae92 (2025-01-16)",
+        "via": "1.1 fly.io",
+        "fly-request-id": "01JHWYS9619Z5RXAFM9GNC6ABR-chi",
+        "content-length": "0"
+      },
+      "status_code": 202
+    }
+  }
+]

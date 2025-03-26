@@ -3,7 +3,7 @@
     "request": {
       "options": [],
       "body": "",
-      "url": "https://api.machines.dev/v1/apps/non-existent-app",
+      "url": "https://api.machines.dev/v1/apps/test-app-vcr/volumes",
       "headers": {
         "Authorization": "***"
       },
